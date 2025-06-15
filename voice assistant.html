@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Voice Assistant</title>
+  <script>
+    let recognition, isListening = false;
+
+    const commands = {
+      // English Commands
+      "open emergency page": () => { speak("Opening Emergency Page"); window.location.href = "emergency.html"; },
+      "show hospitals": () => { speak("Opening Hospital Directory"); window.location.href = "hospitals.html"; },
+      "book appointment": () => { speak("Redirecting to appointment booking"); window.location.href = "doctors.html"; },
+      "check blood bank": () => { speak("Opening Blood Bank"); window.location.href = "blood-bank.html"; },
+      "logout": () => { speak("Logging out"); window.location.href = "logout.html"; },
+      "hello": () => speak("Hello! How can I help you today?"),
+      "who are you": () => speak("I am your MedixOne assistant, always ready to help you."),
+      
+      // Hindi Commands
+      "emergency page kholo": () => { speak("Emergency page khol raha hoon"); window.location.href = "emergency.html"; },
+      "hospital dikhaye": () => { speak("Hospital list dikh raha hoon"); window.location.href = "hospitals.html"; },
+      "appointment book karo": () => { speak("Appointment booking page khol raha hoon"); window.location.href = "doctors.html"; },
+      "blood bank dikhaye": () => { speak("Blood bank khol raha hoon"); window.location.href = "blood-bank.html"; },
+      "logout karo": () => { speak("Logout kar raha hoon"); window.location.href = "logout.html"; },
+      "namaste": () => speak("Namaste! Aapki sahayata ke liye mein yahan hoon"),
+      "tum kaun ho": () => speak("Main MedixOne ka assistant hoon, aapki madad ke liye tayyar hoon"),
+    };
+
+   function speak(text) {
+  speechSynthesis.cancel(); // Clear queue before speaking
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-IN'; // Supports both Hindi and English
+  speechSynthesis.speak(utter);
+}
+
+
+    function startAssistant() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Speech recognition not supported.");
+        return;
+      }
+
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      recognition.lang = 'en-IN';
+
+      recognition.onstart = () => {
+        isListening = true;
+        document.getElementById("status").textContent = "🎙️ Listening...";
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+        console.log("You said:", transcript);
+
+        for (let key in commands) {
+          if (transcript.includes(key)) {
+            commands[key]();
+            break;
+          }
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error(event.error);
+        speak("Something went wrong.");
+      };
+
+      recognition.onend = () => {
+        if (isListening) recognition.start();  // Restart automatically if not manually stopped
+      };
+
+      recognition.start();
+    }
+
+    function stopAssistant() {
+      isListening = false;
+      recognition && recognition.stop();
+      document.getElementById("status").textContent = "🛑 Assistant Stopped.";
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center px-4">
+  <div class="bg-white rounded-xl shadow-md p-8 w-full max-w-md text-center">
+    <h1 class="text-3xl font-bold mb-4 text-teal-600">🧠 MedixOne Assistant</h1>
+    <p id="status" class="mb-4 text-gray-700">🔇 Assistant not active</p>
+    <div class="flex justify-center space-x-4">
+      <button onclick="startAssistant()" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Start Assistant</button>
+      <button onclick="stopAssistant()" class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition">Stop Assistant</button>
+    </div>
+    <p class="text-sm text-gray-500 mt-4">Try saying “open emergency page” or “emergency page kholo”</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hospital Bed Availability</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #e8f0fa;
+      padding: 20px;
+      color: #292c34;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #4b5563;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #04ad56;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .timestamp {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input {
+      flex: 1;
+      min-width: 220px;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+      color: #1d4ed8;
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .location {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .info-section {
+      margin-bottom: 16px;
+      line-height: 1.6;
+      color: #374151;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .badge {
+      border-radius: 12px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 10px;
+      display: inline-block;
+    }
+
+    .green {
+      background: #dcfce7;
+      color: #10ea51;
+    }
+
+    .yellow {
+      background: #fef9c3;
+      color: #92400e;
+    }
+
+    .red {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .footer {
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .book-btn {
+      background: #10b981;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .book-btn:hover {
+      background: #059669;
+      transform: scale(1.05);
+    }
+
+    @media screen and (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .search-bar {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+      </svg>
+      <span class="text-2xl font-bold text-teal-600">Swasthya<span class="text-indigo-600">Link</span></span>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+  <a href="index.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+ 
+  <a href="hospital.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Find Hospitals</a>
+  <a href="beds.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105"><b>Beds</b></a>
+  <a href="blood.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood</a>
+  <a href="emergency.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergency</a>
+  <a href="ai assistant.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+        Login
+      </button>
+     <a href="signupHospital.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a hospital
+        </button>
+      </a>
+
+       <a href="signupUSER.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a user
+        </button>
+      </a>
+    </div>
+  </nav>
+
+   <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+    <a href="index.html" class="hover:text-teal-600">Home</a>
+    <a href="dashboard.html" class="hover:text-teal-600">Dashboard</a>
+    <a href="hospital.html" class="hover:text-teal-600">Find Hospitals</a>
+    <a href="beds.html" class="hover:text-teal-600">Beds</a>
+    <a href="blood.html" class="hover:text-teal-600">Blood</a>
+    <a href="emergency.html" class="hover:text-teal-600">Emergency</a>
+    <a href="ai assistant.html" class="hover:text-teal-600">AI Assistant</a>
+    <div class="flex gap-2 mt-2">
+      <button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button>
+       <a href="signupHospital.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a hospital</button></a>
+      <a href="signupUSER.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a user</button></a>
+    </div>
+  </div>
+  <br>
+  
+
+  <div class="container">
+    <div class="title">Hospital Bed Availability</div>
+    <div class="timestamp">Live bed status. Last refreshed: 6/5/2025, 12:55:56 PM</div>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search hospitals by name or city...">
+      <button class="btn" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105"onclick="searchHospital()">Search</button>
+    </div>
+
+    <div class="card-grid" id="hospitalCards"></div>
+  </div>
+
+  <script>
+    const hospitals = [
+      {
+        name: "City General Hospital",
+        city: "Anytown",
+        general: { available: 45, total: 200 },
+        icu: { available: 10 },
+        updated: "10:00 AM"
+      },
+      {
+        name: "St. Luke Medical Center",
+        city: "Metropolis",
+        general: { available: 12, total: 350 },
+        icu: { available: 25 },
+        updated: "11:30 AM"
+      },
+      {
+        name: "Community Health Clinic",
+        city: "Smallville",
+        general: { available: 5, total: 50 },
+        icu: { available: 2 },
+        updated: "09:15 AM"
+      },
+      {
+        name: "Peak View Regional",
+        city: "Mountain City",
+        general: { available: 80, total: 150 },
+        icu: { available: 6 },
+        updated: "10:45 AM"
+      }
+    ];
+
+    function getStatusClass(available, total) {
+      const percent = available / total;
+      if (percent > 0.5) return 'green';
+      if (percent > 0.2) return 'yellow';
+      return 'red';
+    }
+
+    function renderCards(filter = '') {
+      const container = document.getElementById('hospitalCards');
+      container.innerHTML = '';
+
+      hospitals
+        .filter(h => h.name.toLowerCase().includes(filter) || h.city.toLowerCase().includes(filter))
+        .forEach(h => {
+          const generalStatus = getStatusClass(h.general.available, h.general.total);
+          const icuStatus = h.icu.available < 5 ? 'red' : 'green';
+
+          container.innerHTML += `
+            <div class="card">
+              <h3>${h.name}</h3>
+              <div class="location">📍 ${h.city}</div>
+
+              <div class="info-section">
+                <div class="label">🛏️ General Beds</div>
+                ${h.general.available} / ${h.general.total} Available 
+                <span class="badge ${generalStatus}">${Math.round((h.general.available / h.general.total) * 100)}% Free</span>
+              </div>
+
+              <div class="info-section">
+                <div class="label">🧠 ICU Beds</div>
+                ${h.icu.available} Available
+                <span class="badge ${icuStatus}">${icuStatus === 'red' ? 'High Demand' : 'Available'}</span>
+              </div>
+
+
+<button class="btn book-btn" onclick="window.location.href='bed details.html'">View Details</button>
+              <div class="footer">
+                <div>🕒 Updated: ${h.updated}</div>
+                <div><a href="tel:+91-XXXXXXXXXX">📞 Call Now</a></div>
+              </div>
+            </div>
+          `;
+        });
+    }
+
+    function searchHospital() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      renderCards(query);
+    }
+
+    
+
+    renderCards();
+  </script>
+</body>
+</html>

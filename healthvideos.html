@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trainer Videos | MedixOne</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .video-card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .section-heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(to bottom right, #e0f7fa, #e3f2fd);
+    }
+  </style>
+</head>
+<body class="gradient-bg text-gray-800">
+
+  <!-- Navbar -->
+ <nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+      </svg>
+      <span class="text-2xl font-bold text-teal-600">Medix<span class="text-indigo-600">One</span></span>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+  <a href="index.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+  
+  <a href="hospital.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Find Hospitals</a>
+  <a href="beds.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Beds</a>
+  <a href="blood.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood</a>
+  <a href="emergency.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergency</a>
+  <a href="ai assistant.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+        Login
+      </button>
+     <a href="signupHospital.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a hospital
+        </button>
+      </a>
+
+       <a href="signupUSER.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a user
+        </button>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+    <a href="index.html" class="hover:text-teal-600">Home</a>
+    <a href="dashboard.html" class="hover:text-teal-600">Dashboard</a>
+    <a href="hospital.html" class="hover:text-teal-600">Find Hospitals</a>
+    <a href="beds.html" class="hover:text-teal-600">Beds</a>
+    <a href="blood.html" class="hover:text-teal-600">Blood</a>
+    <a href="emergency.html" class="hover:text-teal-600">Emergency</a>
+    <a href="ai assistant.html" class="hover:text-teal-600">AI Assistant</a>
+    <div class="flex gap-2 mt-2">
+      <button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button>
+      <a href="signupHospital.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a hospital</button></a>
+      <a href="signupUSER.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a user</button></a>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <header class="text-center py-10">
+    <h1 class="text-4xl font-bold text-teal-700">Trainer Videos Library</h1>
+    <p class="text-gray-600 mt-2">Explore expert-curated fitness training by categories</p>
+  </header>
+
+  <!-- Video Sections -->
+  <main class="px-6 lg:px-20 py-8 space-y-14">
+    
+    <!-- Warm-up Section -->
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="section-heading text-teal-600">1. Warm-Up Exercises</h2>
+        <button class="px-4 py-1.5 text-sm bg-teal-500 text-white rounded-md hover:bg-teal-600 transition">+ Add Video</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Placeholder Cards -->
+       <div class="video-card bg-white rounded-lg p-4">
+           <video controls class="w-full h-48 rounded-lg mb-2">
+             <source src="neck and sholder video.mp4" type="video/mp4" />
+             Your browser does not support the video tag.
+           </video>
+          <h3 class="text-lg font-semibold">Neck & Shoulder Stretch</h3>
+          <p class="text-sm text-gray-500">Duration: 10:41 min</p>
+        </div>
+        <div class="video-card bg-white rounded-lg p-4">
+          <video controls class="w-full h-48 rounded-lg mb-2">
+            <source src="full body warmup video.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          <h3 class="text-lg font-semibold">Full Body Warm-Up</h3>
+          <p class="text-sm text-gray-500">Duration: 15:35 min</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Strength Training Section -->
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="section-heading text-indigo-600">2. Strength Training</h2>
+        <button class="px-4 py-1.5 text-sm bg-indigo-500 text-white rounded-md hover:bg-indigo-600 transition">+ Add Video</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="video-card bg-white rounded-lg p-4">
+          <video controls class="w-full h-48 rounded-lg mb-2">
+            <source src="core workout video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <h3 class="text-lg font-semibold">Core Power Session</h3>
+          <p class="text-sm text-gray-500">Duration: 10:15 min</p>
+        </div>
+        <div class="video-card bg-white rounded-lg p-4">
+          <video controls class="w-full h-48 rounded-lg mb-2">
+            <source src="leg press drill video.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          <h3 class="text-lg font-semibold">Leg Press Drill</h3>
+          <p class="text-sm text-gray-500">Duration: 00:38 min</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cardio Section -->
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="section-heading text-rose-600">3. Cardio</h2>
+        <button class="px-4 py-1.5 text-sm bg-rose-500 text-white rounded-md hover:bg-rose-600 transition">+ Add Video</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="video-card bg-white rounded-lg p-4">
+          <video controls class="w-full h-48 rounded-lg mb-2">
+            <source src="HIIT cardio video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <h3 class="text-lg font-semibold">HIIT Blast</h3>
+          <p class="text-sm text-gray-500">Duration: 10:35 min</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Yoga Section -->
+    <section>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="section-heading text-purple-600">4. Yoga & Flexibility</h2>
+        <button class="px-4 py-1.5 text-sm bg-purple-500 text-white rounded-md hover:bg-purple-600 transition">+ Add Video</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="video-card bg-white rounded-lg p-4">
+          <video controls class="w-full h-48 rounded-lg mb-2">
+            <source src="yoga video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <h3 class="text-lg font-semibold">Morning Vinyasa Flow</h3>
+          <p class="text-sm text-gray-500">Duration: 33:21 min</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white py-6 mt-10 shadow-inner text-center text-sm text-gray-500">
+    © 2025 MedixOne | Trainer Library
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedixOne – Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .button-3d {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+    .button-3d:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+ <!-- Navbar -->
+<nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+  <div class="flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+    </svg>
+    <span class="text-2xl font-bold text-teal-600">Swasthya<span class="text-indigo-600">Link</span></span>
+  </div>
+
+  <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+    <a href="{{ url_for('LandingPage') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+    <a href="{{ url_for('view_hospital') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Manage Hospitals</a>
+    <a href="{{ url_for('view_beds') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Beds</a>
+    <a href="{{ url_for('view_blood_banks') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood Banks</a>
+    <a href="{{ url_for('view_emergencies') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergencies</a>
+    <a href="{{ url_for('ai_assistant') }}" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+  </div>
+
+  <div class="md:hidden">
+    <button id="menu-toggle" aria-label="Toggle Menu">
+      <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="hidden md:flex gap-2">
+    <a href="{{ url_for('login') }}">
+      <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+        Login
+      </button>
+    </a>
+    <a href="{{ url_for('signupHospital') }}">
+      <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+        Sign Up as Hospital
+      </button>
+    </a>
+    <a href="{{ url_for('signupUSER') }}">
+      <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+        Sign Up as User
+      </button>
+    </a>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+  <a href="{{ url_for('LandingPage') }}" class="hover:text-teal-600">Home</a>
+  <a href="{{ url_for('view_hospital') }}" class="hover:text-teal-600">Manage Hospitals</a>
+  <a href="{{ url_for('view_beds') }}" class="hover:text-teal-600">Beds</a>
+  <a href="{{ url_for('view_blood_banks') }}" class="hover:text-teal-600">Blood Banks</a>
+  <a href="{{ url_for('view_emergencies') }}" class="hover:text-teal-600">Emergencies</a>
+  <a href="{{ url_for('ai_assistant') }}" class="hover:text-teal-600">AI Assistant</a>
+  <div class="flex gap-2 mt-2">
+    <a href="{{ url_for('login') }}">
+      <button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button>
+    </a>
+    <a href="{{ url_for('signupUSER') }}">
+      <button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up</button>
+    </a>
+  </div>
+</div>
+<div>
+
+  <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <p class="alert alert-{{ category }}">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                <label for="username" class="form-label">{{ form.username.label }}</label>
+                {{ form.username(type="text", class="form-control") }}
+                {% if form.username.errors %}
+                <ul class="text-danger">
+                    {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">{{ form.password.label }}</label>
+                {{ form.password(type="password", class="form-control") }}
+                {% if form.password.errors %}
+                <ul class="text-danger">
+                    {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary") }}
+                <p class="mt-3">
+                    <p><strong>Don't have account?</strong></p>
+                    <a href="{{ url_for('user_registration') }}">Register as student</a> |
+                    <a href="{{ url_for('hospital_registration') }}">Register as mentor</a> |
+                    <a href="{{ url_for('forgetpassword') }}">Forgot Password?</a>
+                </p>
+            </div>
+        </form>
+</div>
+
+  <!-- JS -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = this.email.value;
+      const password = this.password.value;
+
+      try {
+        const res = await fetch('https://your-backend-api.com/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          alert('Login successful!');
+          window.location.href = 'dashboard.html';
+        } else {
+          alert(data.message || 'Login failed.');
+        }
+      } catch (err) {
+        alert('Network error.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

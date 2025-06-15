@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swasthya Link – Book Doctors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+
+  <style>
+    .card:hover { transform: scale(1.03); transition: all 0.3s ease; }
+    .modal { backdrop-filter: blur(5px); }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-white via-slate-50 to-teal-50 text-slate-800">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+      </svg>
+      <span class="text-2xl font-bold text-teal-600">Swasthya<span class="text-indigo-600">Link</span></span>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+  <a href="index.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+ 
+  <a href="hospital.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Find Hospitals</a>
+  <a href="beds.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Beds</a>
+  <a href="blood.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood</a>
+  <a href="emergency.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergency</a>
+  <a href="ai assistant.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <a href="login.html">
+        <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+          Login
+        </button>
+      </a>
+     <a href="signupHospital.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a hospital
+        </button>
+      </a>
+
+       <a href="signupUSER.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a user
+        </button>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+    <a href="index.html" class="hover:text-teal-600">Home</a>
+    <a href="dashboard.html" class="hover:text-teal-600">Dashboard</a>
+    <a href="hospital.html" class="hover:text-teal-600">Find Hospitals</a>
+    <a href="beds.html" class="hover:text-teal-600">Beds</a>
+    <a href="blood.html" class="hover:text-teal-600">Blood</a>
+    <a href="emergency.html" class="hover:text-teal-600">Emergency</a>
+    <a href="ai assistant.html" class="hover:text-teal-600">AI Assistant</a>
+    <div class="flex gap-2 mt-2">
+      <a href="login.html"><button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button></a>
+      <a href="signupHospital.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a hospital</button></a>
+      <a href="signupUSER.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a user</button></a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <section class="text-center py-10 px-4">
+    <h1 class="text-4xl font-bold text-teal-600 mb-2">Book Your Doctor</h1>
+    <p class="text-gray-500">Consult with certified doctors online – anytime, anywhere.</p>
+  </section>
+
+  <!-- Doctors Section -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 pb-12" id="doctor-list">
+    <!-- Doctor Cards will be injected here by JS -->
+  </section>
+
+  <!-- Appointment Modal -->
+  <div id="appointmentModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/30 modal">
+    <div class="bg-white rounded-lg shadow p-6 w-full max-w-md relative">
+      <button onclick="closeModal()" class="absolute top-2 right-3 text-gray-500 hover:text-red-500">&times;</button>
+      <h3 class="text-xl font-semibold text-teal-600 mb-4">Book Appointment</h3>
+      <form id="appointmentForm">
+        <input type="hidden" name="doctorName" id="doctorNameInput">
+        <input type="text" id="name" placeholder="Your Name" class="w-full mb-3 px-3 py-2 border rounded" required>
+        <input type="email" id="email" placeholder="Your Email" class="w-full mb-3 px-3 py-2 border rounded" required>
+        <input type="date" id="date" class="w-full mb-3 px-3 py-2 border rounded" required>
+        <input type="time" id="time" class="w-full mb-4 px-3 py-2 border rounded" required>
+        <button type="submit" class="w-full bg-teal-500 text-white py-2 rounded hover:bg-teal-600">Confirm Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  emailjs.init("r9ozY8_3WGC1NxDp3"); // Replace with your real public key
+
+    const doctors = [
+      { name: "Dr. Aisha Khan", specialty: "Cardiologist", description: "Expert in heart conditions and hypertension." },
+      { name: "Dr. Rahul Mehta", specialty: "Dermatologist", description: "Specialist in skin disorders and acne treatment." },
+      { name: "Dr. Meera Das", specialty: "Pediatrician", description: "Loves working with children and improving infant care." },
+      { name: "Dr. Sanjay Verma", specialty: "Neurologist", description: "Handles brain and spinal issues with utmost care." },
+      { name: "Dr. Anjali Roy", specialty: "Dentist", description: "Certified in orthodontics and smile makeovers." },
+    ];
+
+    const doctorList = document.getElementById("doctor-list");
+
+    doctors.forEach((doc, index) => {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg shadow card p-4";
+      card.innerHTML = `
+        <h3 class="text-lg font-bold text-indigo-600">${doc.name}</h3>
+        <p class="text-sm text-gray-500">${doc.specialty}</p>
+        <p class="text-sm mt-2">${doc.description}</p>
+        <button onclick="openModal('${doc.name}')" class="mt-4 bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">Book Appointment</button>
+      `;
+      doctorList.appendChild(card);
+    });
+
+    function openModal(doctorName) {
+      document.getElementById("appointmentModal").classList.remove("hidden");
+      document.getElementById("doctorNameInput").value = doctorName;
+    }
+
+    function closeModal() {
+      document.getElementById("appointmentModal").classList.add("hidden");
+    }
+
+    document.getElementById("appointmentForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const doctor = document.getElementById("doctorNameInput").value;
+
+      const templateParams = {
+        user_name: name,
+        user_email: email,
+        appointment_date: date,
+        appointment_time: time,
+        doctor_name: doctor,
+        meet_link: "https://meet.google.com/abc-defg-hij" // Can be dynamically generated if backend is used
+      };
+
+      emailjs.send('service_c09400d', 'template_jm67wct', templateParams)
+        .then(() => {
+          alert("Appointment confirmed! Check your email.");
+          closeModal();
+          document.getElementById("appointmentForm").reset();
+        }, (error) => {
+          alert("Failed to send email: " + error.text);
+        });
+    });
+  </script>
+</body>
+</html>

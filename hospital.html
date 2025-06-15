@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swasthya Link – Find Hospitals</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 3D Zoom Button Animation */
+    .btn-zoom {
+      transform: perspective(1000px) translateZ(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-zoom:hover {
+      transform: perspective(1000px) scale(1.05) translateZ(10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body class="bg-[#e8f0fa] font-sans text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+      </svg>
+      <span class="text-2xl font-bold text-teal-600"><span class="text-indigo-600">Swasthya</span> Link</span>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+  <a href="index.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+  <a href="dashboard.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Dashboard</a>
+  <a href="hospital.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Find Hospitals</a>
+  <a href="beds.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Beds</a>
+  <a href="blood.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood</a>
+  <a href="emergency.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergency</a>
+  <a href="ai assistant.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+        Login
+      </button>
+     <a href="signupHospital.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a hospital
+        </button>
+      </a>
+
+       <a href="signupUSER.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a user
+        </button>
+      </a>
+    </div>
+  </nav>
+ <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+    <a href="index.html" class="hover:text-teal-600">Home</a>
+    
+    <a href="hospital.html" class="hover:text-teal-600">Find Hospitals</a>
+    <a href="beds.html" class="hover:text-teal-600">Beds</a>
+    <a href="blood.html" class="hover:text-teal-600">Blood</a>
+    <a href="emergency.html" class="hover:text-teal-600">Emergency</a>
+    <a href="ai assistant.html" class="hover:text-teal-600">AI Assistant</a>
+    <div class="flex gap-2 mt-2">
+      <button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button>
+     <a href="signupHospital.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a hospital</button></a>
+      <a href="signupUSER.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a user</button></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h2 class="text-3xl font-extrabold text-gray-900">Find Nearby Hospitals</h2>
+        <p class="text-gray-600 font-medium">Discover hospitals and clinics near your location.</p>
+      </div>
+      <a href="hospitalregister.html"><button class="bg-teal-600 text-white px-4 py-2 rounded-md btn-zoom text-sm">
+        ➕ Register New Hospital
+      </button></a>
+    </div>
+
+    <!-- Search Bar -->
+<div class="mt-6">
+  <div class="flex flex-col md:flex-row items-center gap-4">
+    <input id="search-input" type="text" placeholder="Search hospitals by name..." class="w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent" />
+    <button id="search-btn" class="bg-green-600 text-white px-6 py-2 rounded-md font-medium transition-transform duration-300 transform hover:scale-105 shadow-md">Search</button>
+  </div>
+</div>
+<br>
+
+
+    
+
+    <!-- Hospital Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card Template -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+        <div class="h-48 bg-gray-300 rounded-t-2xl flex items-center justify-center text-3xl font-bold text-gray-500">600 × 400</div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900">City General Hospital</h3>
+          <p class="text-sm text-blue-600">Rating: 4.5 / 5</p>
+          <p class="text-sm mt-1">📍 123 Main St, Anytown, USA</p>
+          <p class="text-sm">📞 555-1234</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">🌐 Visit Website</a>
+          <div class="mt-3">
+            <strong class="text-sm text-gray-700">Services:</strong>
+            <div class="flex flex-wrap gap-2 mt-1">
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Emergency Care</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Cardiology</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Pediatrics</span>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-between items-center">
+            <button class="text-sm px-4 py-1.5 border border-gray-300 rounded-md btn-zoom">View Details</button>
+            <button class="text-sm px-4 py-1.5 bg-blue-100 text-blue-800 rounded-md btn-zoom">🏥 Hospital Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- More cards -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+        <div class="h-48 bg-gray-300 rounded-t-2xl flex items-center justify-center text-3xl font-bold text-gray-500">600 × 400</div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900">St. Luke Medical Center</h3>
+          <p class="text-sm text-blue-600">Rating: 4.8 / 5</p>
+          <p class="text-sm mt-1">📍 456 Oak Ave, Anytown, USA</p>
+          <p class="text-sm">📞 555-5678</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">🌐 Visit Website</a>
+          <div class="mt-3">
+            <strong class="text-sm text-gray-700">Services:</strong>
+            <div class="flex flex-wrap gap-2 mt-1">
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Oncology</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Neurology</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Surgical Services</span>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-between items-center">
+            <button class="text-sm px-4 py-1.5 border border-gray-300 rounded-md btn-zoom">View Details</button>
+            <button class="text-sm px-4 py-1.5 bg-blue-100 text-blue-800 rounded-md btn-zoom">🏥 Hospital Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
+        <div class="h-48 bg-gray-300 rounded-t-2xl flex items-center justify-center text-3xl font-bold text-gray-500">600 × 400</div>
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-gray-900">Community Health Clinic</h3>
+          <p class="text-sm text-blue-600">Rating: 4.2 / 5</p>
+          <p class="text-sm mt-1">📍 789 Pine Rd, Anytown, USA</p>
+          <p class="text-sm">📞 555-9012</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">🌐 Visit Website</a>
+          <div class="mt-3">
+            <strong class="text-sm text-gray-700">Services:</strong>
+            <div class="flex flex-wrap gap-2 mt-1">
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Family Medicine</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Urgent Care</span>
+              <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">Diagnostics</span>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-between items-center">
+            <button class="text-sm px-4 py-1.5 border border-gray-300 rounded-md btn-zoom">View Details</button>
+            <button class="text-sm px-4 py-1.5 bg-blue-100 text-blue-800 rounded-md btn-zoom">🏥 Hospital Dashboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+<script>
+  document.getElementById('search-btn').addEventListener('click', function () {
+    const searchValue = document.getElementById('search-input').value.toLowerCase();
+    const cards = document.querySelectorAll('main .grid > div');
+
+    cards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      if (title.includes(searchValue)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  
+  document.getElementById('search-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') document.getElementById('search-btn').click();
+  });
+</script>
+
+</body>
+</html>

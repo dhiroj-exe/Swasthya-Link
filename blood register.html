@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register Blood Bank | Swasthya Link</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .button-3d {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+    .button-3d:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-teal-50 to-indigo-100">
+
+  <div class="w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="md:flex">
+      <!-- Left: Form -->
+      <div class="w-full md:w-1/2 p-8">
+        <h2 class="text-3xl font-extrabold text-red-600 mb-2">Register Blood Bank</h2>
+        <p class="text-sm text-gray-500 mb-6">Provide accurate details to make your blood bank easily searchable for patients.</p>
+        
+        <form id="registerForm" class="space-y-4">
+          <input type="text" name="name" placeholder="Blood Bank Name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"/>
+
+          <input type="text" name="contact" placeholder="Contact Number" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"/>
+
+          <input type="email" name="email" placeholder="Email Address" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"/>
+
+          <input type="text" name="location" id="location" placeholder="Detecting location..." required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"/>
+
+          <label class="block font-semibold text-gray-700">Available Blood Groups:</label>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm text-gray-700">
+            <label><input type="checkbox" name="bloodGroups" value="A+"> A+</label>
+            <label><input type="checkbox" name="bloodGroups" value="A-"> A-</label>
+            <label><input type="checkbox" name="bloodGroups" value="B+"> B+</label>
+            <label><input type="checkbox" name="bloodGroups" value="B-"> B-</label>
+            <label><input type="checkbox" name="bloodGroups" value="AB+"> AB+</label>
+            <label><input type="checkbox" name="bloodGroups" value="AB-"> AB-</label>
+            <label><input type="checkbox" name="bloodGroups" value="O+"> O+</label>
+            <label><input type="checkbox" name="bloodGroups" value="O-"> O-</label>
+          </div>
+
+          <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-md transition button-3d">
+            Register Now
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Image/Visual -->
+      <div class="hidden md:block md:w-1/2">
+        <img src="https://source.unsplash.com/600x600/?blood,donation" alt="Blood Bank" class="object-cover w-full h-full"/>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const locationInput = document.getElementById("location");
+    window.onload = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            const lat = pos.coords.latitude.toFixed(4);
+            const lon = pos.coords.longitude.toFixed(4);
+            locationInput.value = `Lat: ${lat}, Lon: ${lon}`;
+          },
+          err => {
+            locationInput.placeholder = "Enter location manually";
+          }
+        );
+      } else {
+        locationInput.placeholder = "Enter location manually";
+      }
+    };
+
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = {
+        name: formData.get("name"),
+        contact: formData.get("contact"),
+        email: formData.get("email"),
+        location: formData.get("location"),
+        bloodGroups: formData.getAll("bloodGroups")
+      };
+
+      let existing = JSON.parse(localStorage.getItem("bloodBanks") || "[]");
+      existing.push(data);
+      localStorage.setItem("bloodBanks", JSON.stringify(existing));
+      alert("Blood bank registered successfully!");
+      window.location.href = "blood.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swasthya Link – Blood Banks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .glass {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-teal-50 to-indigo-100 min-h-screen text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 shadow bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.656 0 3-1.567 3-3.5S13.656 1 12 1 9 2.567 9 4.5 10.344 8 12 8zM3 20c0-2.5 3-4 9-4s9 1.5 9 4v1H3v-1z" />
+      </svg>
+      <span class="text-2xl font-bold text-teal-600">Swasthya<span class="text-indigo-600">Link</span></span>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-gray-600">
+  <a href="index.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Home</a>
+ 
+  <a href="hospital.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Find Hospitals</a>
+  <a href="beds.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Beds</a>
+  <a href="blood.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Blood</a>
+  <a href="emergency.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">Emergency</a>
+  <a href="ai assistant.html" class="px-3 py-2 rounded-md transition duration-200 hover:text-white hover:bg-teal-500 hover:scale-105">AI Assistant</a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="menu-toggle" aria-label="Toggle Menu">
+        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <div class="hidden md:flex gap-2">
+      <button class="px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">
+        Login
+      </button>
+     <a href="signupHospital.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a hospital
+        </button>
+      </a>
+
+       <a href="signupUSER.html">
+        <button class="px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">
+          Sign Up as a user
+        </button>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col gap-2 px-6 py-4 bg-white shadow border-b border-slate-200 text-sm font-medium text-slate-600">
+    <a href="index.html" class="hover:text-teal-600">Home</a>
+    <a href="dashboard.html" class="hover:text-teal-600">Dashboard</a>
+    <a href="hospital.html" class="hover:text-teal-600">Find Hospitals</a>
+    <a href="beds.html" class="hover:text-teal-600">Beds</a>
+    <a href="blood.html" class="hover:text-teal-600">Blood</a>
+    <a href="emergency.html" class="hover:text-teal-600">Emergency</a>
+    <a href="ai assistant.html" class="hover:text-teal-600">AI Assistant</a>
+    <div class="flex gap-2 mt-2">
+      <button class="w-full px-4 py-1.5 border border-teal-500 text-teal-600 hover:bg-teal-500 hover:text-white rounded-md text-sm transition button-3d">Login</button>
+       <a href="signupHospital.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a hospital</button></a>
+      <a href="signupUSER.html"><button class="w-full px-4 py-1.5 bg-teal-500 hover:bg-teal-400 text-white rounded-md text-sm transition button-3d">Sign Up as a user</button></a>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <section class="px-4 py-10 max-w-6xl mx-auto">
+    <div class="glass p-6 rounded-xl shadow-md mb-8">
+      <h2 class="text-xl md:text-2xl font-semibold text-teal-700 mb-4">🔍 Find Nearby Blood Banks</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input id="searchName" type="text" placeholder="Search by Name or City"
+          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-400" />
+        <select id="searchGroup"
+          class="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-400">
+          <option value="">All Blood Groups</option>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+        </select>
+        <button id="resetBtn"
+          class=" bg-gradient-to-r from-teal-500 to-green-500 text-white px-4 py-2 rounded-md hover:scale-105 transition">Reset</button>
+          <a href="blood register.html">
+            <button
+              class="bg-gradient-to-r from-teal-500 to-green-500 text-white px-4 py-2 rounded-md hover:scale-105 transition">Register Blood Bank</button>
+          </a>
+      </div>
+
+    </div>
+
+    <!-- Cards Container -->
+    <div id="bloodBanksContainer"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300">
+      <!-- Cards will appear here -->
+    </div>
+
+    <p id="noResults" class="text-center text-gray-500 mt-10 hidden">😢 No matching blood banks found.</p>
+  </section>
+
+  <script>
+    const bloodBanks = [
+      {
+        name: "LifeLine Blood Center",
+        city: "Mumbai",
+        phone: "+91 9876543210",
+        email: "contact@lifeline.org",
+        bloodTypes: ["A+", "B+", "O+", "AB+"]
+      },
+      {
+        name: "RedDrop Bank",
+        city: "Delhi",
+        phone: "+91 9822334455",
+        email: "info@reddrop.in",
+        bloodTypes: ["O-", "A-", "AB+", "B-"]
+      },
+      {
+        name: "Hope Blood Center",
+        city: "Bangalore",
+        phone: "+91 9090909090",
+        email: "hope@blood.org",
+        bloodTypes: ["A+", "O+", "B+", "AB-"]
+      },
+      {
+        name: "CarePlus Blood Bank",
+        city: "Chennai",
+        phone: "+91 9876543211",
+        email: "care@plus.com",
+        bloodTypes: ["A+", "O-", "B-", "AB+"]
+      },
+      {
+        name: "Unity Blood Services",
+        city: "Kolkata",
+        phone: "+91 9001122233",
+        email: "unity@blood.com",
+        bloodTypes: ["A-", "O-", "B+", "AB-"]
+      }
+    ];
+
+    const container = document.getElementById('bloodBanksContainer');
+    const searchName = document.getElementById('searchName');
+    const searchGroup = document.getElementById('searchGroup');
+    const noResults = document.getElementById('noResults');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function renderBanks(filterName = '', filterGroup = '') {
+      const filtered = bloodBanks.filter(bank => {
+        const matchesName = bank.name.toLowerCase().includes(filterName.toLowerCase()) ||
+          bank.city.toLowerCase().includes(filterName.toLowerCase());
+
+        const matchesGroup = filterGroup === '' || bank.bloodTypes.includes(filterGroup);
+
+        return matchesName && matchesGroup;
+      });
+
+      container.innerHTML = filtered.map(bank => `
+        <div class="bg-white rounded-xl p-5 shadow-md card-hover">
+          <h3 class="text-lg font-semibold text-teal-700">${bank.name}</h3>
+          <p class="text-sm text-gray-700">📍 ${bank.city}</p>
+          <p class="text-sm text-gray-700">📞 ${bank.phone}</p>
+          <p class="text-sm text-gray-700">✉️ ${bank.email}</p>
+          <p class="mt-2 text-xs text-gray-500">
+            <strong>Available:</strong> ${bank.bloodTypes.join(', ')}
+          </p>
+        </div>
+      `).join('');
+
+      noResults.classList.toggle('hidden', filtered.length > 0);
+    }
+
+    searchName.addEventListener('input', () => renderBanks(searchName.value, searchGroup.value));
+    searchGroup.addEventListener('change', () => renderBanks(searchName.value, searchGroup.value));
+    resetBtn.addEventListener('click', () => {
+      searchName.value = '';
+      searchGroup.value = '';
+      renderBanks();
+    });
+
+    renderBanks();
+  </script>
+</body>
+
+</html>

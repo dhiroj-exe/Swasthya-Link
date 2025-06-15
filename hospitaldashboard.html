@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a2e0c6ad5d.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 shadow bg-white sticky top-0 z-50 border-b border-gray-200">
+    <div class="flex items-center gap-2 text-2xl font-bold text-teal-600">
+      <i class="fas fa-hospital-symbol text-indigo-600"></i>
+      Medix<span class="text-indigo-600">One</span>
+    </div>
+    <div class="flex gap-3">
+      <button class="text-sm px-4 py-1.5 rounded-md bg-teal-500 text-white hover:bg-teal-600 transition">Profile</button>
+      <button class="text-sm px-4 py-1.5 rounded-md border border-red-500 text-red-500 hover:bg-red-100 transition">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Layout -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 p-6 hidden md:block">
+      <h2 class="text-xl font-semibold mb-6 text-gray-700">Hospital Panel</h2>
+      <ul class="space-y-4">
+        <li><button onclick="showSection('main')" class="w-full text-left hover:text-teal-600"><i class="fas fa-chart-pie mr-2"></i> Main Overview</button></li>
+        <li><button onclick="showSection('beds')" class="w-full text-left hover:text-teal-600"><i class="fas fa-bed mr-2"></i> Manage Beds</button></li>
+        <li><button onclick="showSection('emergency')" class="w-full text-left hover:text-teal-600"><i class="fas fa-ambulance mr-2"></i> Emergency</button></li>
+        <li><button onclick="showSection('drugs')" class="w-full text-left hover:text-teal-600"><i class="fas fa-pills mr-2"></i> Drug Stock</button></li>
+        <li><button onclick="showSection('opd')" class="w-full text-left hover:text-teal-600"><i class="fas fa-stethoscope mr-2"></i> OPD Queue</button></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-8">
+
+      <!-- Section: Main Overview -->
+      <section id="main" class="section">
+        <h2 class="text-2xl font-semibold mb-4">Main Overview</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-4 bg-white shadow rounded border-l-4 border-teal-500">
+            <h3 class="text-lg font-medium text-teal-600">ICU Beds</h3>
+            <p id="icuCount" class="text-3xl font-bold">0</p>
+          </div>
+          <div class="p-4 bg-white shadow rounded border-l-4 border-indigo-500">
+            <h3 class="text-lg font-medium text-indigo-600">General Beds</h3>
+            <p id="generalCount" class="text-3xl font-bold">0</p>
+          </div>
+          <div class="p-4 bg-white shadow rounded border-l-4 border-rose-500">
+            <h3 class="text-lg font-medium text-rose-600">Emergency Requests</h3>
+            <p class="text-3xl font-bold">4</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Manage Beds -->
+      <section id="beds" class="section hidden">
+        <h2 class="text-2xl font-semibold mb-4">Manage Beds</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-lg font-medium text-teal-600 mb-2">ICU Beds</h3>
+            <input id="icuInput" type="number" placeholder="Enter available beds" class="w-full border p-2 rounded mb-2">
+            <button onclick="updateBeds('icu')" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 w-full">Update</button>
+          </div>
+          <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-lg font-medium text-indigo-600 mb-2">General Beds</h3>
+            <input id="generalInput" type="number" placeholder="Enter available beds" class="w-full border p-2 rounded mb-2">
+            <button onclick="updateBeds('general')" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 w-full">Update</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Emergency Requests -->
+      <section id="emergency" class="section hidden">
+        <h2 class="text-2xl font-semibold mb-4">Emergency Requests</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <p>No new emergency requests at the moment.</p>
+        </div>
+      </section>
+
+      <!-- Section: Drug Stock -->
+      <section id="drugs" class="section hidden">
+        <h2 class="text-2xl font-semibold mb-4">Update Drug Stock</h2>
+        <div class="bg-white p-4 rounded shadow space-y-4">
+          <div class="flex flex-col md:flex-row items-center gap-4">
+            <input id="drugName" type="text" placeholder="Drug Name" class="border p-2 rounded w-full md:w-1/2">
+            <input id="drugQty" type="number" placeholder="Quantity" class="border p-2 rounded w-full md:w-1/4">
+            <button onclick="updateDrugStock()" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 w-full md:w-auto">Update</button>
+          </div>
+          <div id="drugStatus" class="text-sm text-green-600"></div>
+        </div>
+      </section>
+
+      <!-- Section: OPD Queue -->
+      <section id="opd" class="section hidden">
+        <h2 class="text-2xl font-semibold mb-4">Manage OPD Queue</h2>
+        <div class="bg-white p-4 rounded shadow">
+          <p>Current patients in queue: <span class="font-semibold">5</span></p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(section => section.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function updateBeds(type) {
+      const countEl = document.getElementById(type === 'icu' ? 'icuCount' : 'generalCount');
+      const inputEl = document.getElementById(type === 'icu' ? 'icuInput' : 'generalInput');
+      const value = parseInt(inputEl.value);
+      if (!isNaN(value)) {
+        countEl.textContent = value;
+        inputEl.value = '';
+      }
+    }
+
+    function updateDrugStock() {
+      const drugName = document.getElementById('drugName').value;
+      const qty = document.getElementById('drugQty').value;
+      const statusEl = document.getElementById('drugStatus');
+
+      if (drugName && qty) {
+        statusEl.textContent = `Updated ${drugName} stock to ${qty} units.`;
+        document.getElementById('drugName').value = '';
+        document.getElementById('drugQty').value = '';
+      } else {
+        statusEl.textContent = 'Please fill out both fields.';
+      }
+    }
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", () => {
+      showSection('main');
+    });
+  </script>
+
+</body>
+</html>
